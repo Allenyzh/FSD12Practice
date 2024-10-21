@@ -1,7 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-
-const fetchContent = async (url) => {
+const url = "https://www.lapresse.ca/actualites/2024-07-16/programme-cycliste-averti/quand-l-ecole-fait-pedaler-les-jeunes.php"
+const fetchContent = async () => {
   const response = await axios.get(url);
   const $ = cheerio.load(response.data);
   const title = $("h1.headlines.titleModule .title.titleModule__main").text();
@@ -19,7 +19,10 @@ const fetchContent = async (url) => {
     $(this).replaceWith(img);
   });
   const content = $.html(preContent);
+  
   return { title, summary, content };
 };
+
+
 
 module.exports = { fetchContent };
